@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Valentine 💘</title>
+
+<style>
+  body{
+    margin:0;
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background: radial-gradient(circle, #ffe6f0, #ffccd5);
+    font-family: system-ui, -apple-system, "Comic Sans MS", sans-serif;
+    overflow:hidden;
+  }
+
+  .card{
+    width: 360px;
+    background: #fff;
+    border-radius: 26px;
+    padding: 28px 22px 34px;
+    text-align:center;
+    position: relative;
+    box-shadow: 0 20px 45px rgba(0,0,0,.16);
+  }
+
+  /* Cute round bear */
+  .bear{
+    width:170px;
+    height:170px;
+    background:#c58a5a;
+    border-radius:50%;
+    margin:0 auto 10px;
+    position:relative;
+    box-shadow: inset 0 -10px 0 rgba(0,0,0,.06);
+  }
+  .ear{
+    width:58px;height:58px;
+    background:#c58a5a;
+    border-radius:50%;
+    position:absolute;
+    top:-12px;
+    box-shadow: inset 0 -7px 0 rgba(0,0,0,.06);
+  }
+  .ear.left{ left:4px; }
+  .ear.right{ right:4px; }
+  .ear::after{
+    content:"";
+    width:34px;height:34px;
+    background:#e7b38a;
+    border-radius:50%;
+    position:absolute;
+    left:50%; top:50%;
+    transform:translate(-50%,-50%);
+  }
+
+  .eye{
+    width:12px;height:12px;
+    background:#2a1b1f;
+    border-radius:50%;
+    position:absolute;
+    top:64px;
+  }
+  .eye.left{ left:52px; }
+  .eye.right{ right:52px; }
+
+  .blush{
+    width:22px;height:14px;
+    background: rgba(255, 77, 141, .35);
+    border-radius: 999px;
+    position:absolute;
+    top:84px;
+  }
+  .blush.left{ left:34px; }
+  .blush.right{ right:34px; }
+
+  .muzzle{
+    width:78px;height:56px;
+    background:#e7b38a;
+    border-radius:50%;
+    position:absolute;
+    left:50%;
+    top:96px;
+    transform:translateX(-50%);
+    box-shadow: inset 0 -6px 0 rgba(0,0,0,.06);
+  }
+  .nose{
+    width:14px;height:10px;
+    background:#2a1b1f;
+    border-radius: 0 0 10px 10px;
+    position:absolute;
+    left:50%; top:16px;
+    transform:translateX(-50%);
+  }
+  .smile{
+    position:absolute;
+    left:50%; top:30px;
+    width:34px; height:16px;
+    transform:translateX(-50%);
+    border:3px solid #2a1b1f;
+    border-top:0;
+    border-left-color:transparent;
+    border-right-color:transparent;
+    border-radius:0 0 999px 999px;
+    opacity:.9;
+  }
+
+  h2{
+    margin: 10px 0 6px;
+    color:#3a2b35;
+  }
+  p{
+    margin: 0 0 14px;
+    color:#3a2b35;
+    opacity:.75;
+    font-size: 14px;
+  }
+
+  /* Buttons side-by-side */
+  .btn-row{
+    margin-top: 18px;
+    display:flex;
+    justify-content:center;
+    gap:16px;
+    align-items:center;
+    position:relative;
+    height:60px;
+  }
+
+  button{
+    padding:12px 22px;
+    border:none;
+    border-radius:14px;
+    font-size:16px;
+    font-weight:800;
+    cursor:pointer;
+    user-select:none;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  #yesBtn{
+    background:#ff4d8d;
+    color:#fff;
+    box-shadow: 0 10px 20px rgba(255,77,141,.25);
+  }
+
+  #noBtn{
+    background:#fff;
+    border:1px solid rgba(0,0,0,.18);
+    position:relative; /* stays next to Yes */
+  }
+
+  /* Big love text overlay (hidden until YES) */
+  #loveText{
+    display:none;
+    position:fixed;
+    inset:0;
+    justify-content:center;
+    align-items:center;
+    font-size: 54px;
+    font-weight: 1000;
+    color:#ff2f7d;
+    text-shadow: 0 8px 28px rgba(255,0,90,.35);
+    z-index: 10;
+    animation: bounce 1s infinite;
+  }
+
+  @keyframes bounce{
+    0%,100%{ transform:scale(1); }
+    50%{ transform:scale(1.18); }
+  }
+
+  /* Heart burst particles */
+  .heart{
+    position:fixed;
+    width:22px;height:22px;
+    background:#ff4d8d;
+    transform: rotate(45deg);
+    animation: fly 2s ease-out forwards;
+    z-index: 9;
+  }
+  .heart::before,.heart::after{
+    content:"";
+    width:22px;height:22px;
+    background:#ff4d8d;
+    border-radius:50%;
+    position:absolute;
+  }
+  .heart::before{ top:-11px; left:0; }
+  .heart::after{ left:-11px; top:0; }
+
+  @keyframes fly{
+    to{
+      transform: translate(var(--x), var(--y)) rotate(45deg) scale(0);
+      opacity: 0;
+    }
+  }
+</style>
+</head>
+
+<body>
+
+  <div class="card" id="card">
+    <div class="bear" aria-label="Cute bear">
+      <div class="ear left"></div>
+      <div class="ear right"></div>
+      <div class="eye left"></div>
+      <div class="eye right"></div>
+      <div class="blush left"></div>
+      <div class="blush right"></div>
+      <div class="muzzle">
+        <div class="nose"></div>
+        <div class="smile"></div>
+      </div>
+    </div>
+
+    <h2>Will you be my Valentine? 💘</h2>
+    <p>(Choose wisely… the bear is watching 🐻)</p>
+
+    <div class="btn-row" id="btnRow">
+      <button id="yesBtn">Yes 💖</button>
+      <button id="noBtn" type="button">No 🙈</button>
+    </div>
+  </div>
+
+  <div id="loveText">I LOVEEEE YOUUU 💞</div>
+
+<script>
+  const noBtn = document.getElementById("noBtn");
+  const yesBtn = document.getElementById("yesBtn");
+  const card = document.getElementById("card");
+  const loveText = document.getElementById("loveText");
+
+  // Keep buttons next to each other, but "No" dodges with small wiggles
+  function moveNo(){
+    const x = Math.random() * 90 - 45;   // -45 to +45 px
+    const y = Math.random() * 26 - 13;   // -13 to +13 px
+    noBtn.style.transform = `translate(${x}px, ${y}px)`;
+  }
+
+  ["mouseenter","touchstart","pointerdown","focus"].forEach(evt=>{
+    noBtn.addEventListener(evt, (e)=>{
+      e.preventDefault();
+      moveNo();
+    }, { passive:false });
+  });
+
+  noBtn.addEventListener("click", (e)=>{
+    e.preventDefault();
+    moveNo();
+  });
+
+  yesBtn.addEventListener("click", ()=>{
+    card.style.display = "none";
+    loveText.style.display = "flex";
+
+    // Heart burst
+    for(let i=0; i<80; i++){
+      const h = document.createElement("div");
+      h.className = "heart";
+      h.style.left = "50%";
+      h.style.top = "50%";
+      h.style.setProperty("--x", (Math.random()*800 - 400) + "px");
+      h.style.setProperty("--y", (Math.random()*-800) + "px");
+      document.body.appendChild(h);
+      setTimeout(()=>h.remove(), 2000);
+    }
+  });
+</script>
+
+</body>
+</html>
